@@ -27,6 +27,19 @@ export const schema = buildSchema(`
     balance: Int!
   }
 
+  type Post {
+    id: ID!
+    title: String!
+    content: String!
+    authorId: ID!
+  }
+
+  type Profile {
+    id: ID!
+    isMale: Boolean!
+    yearOfBirth: Int!
+  }
+
   type MemberType {
     id: ID!
     discount: Float!
@@ -35,6 +48,12 @@ export const schema = buildSchema(`
 
   type Query {
     users: [User]
+    user(id: ID!): User
     memberTypes: [MemberType]
+    memberType(id: ID!): MemberType
+    posts: [Post]
+    post(id: ID!): Post
+    profiles: [Profile]
+    profile(id: ID!): Profile
   }
 `);

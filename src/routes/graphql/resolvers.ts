@@ -8,8 +8,46 @@ export function resolvers(
     users: () => {
       return prisma.user.findMany();
     },
+    user: async ({ id }) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: id as string,
+        },
+      });
+      return user;
+    },
     memberTypes: () => {
       return prisma.memberType.findMany();
+    },
+    memberType: async ({ id }) => {
+      const memberType = await prisma.memberType.findUnique({
+        where: {
+          id: id as string,
+        },
+      });
+      return memberType;
+    },
+    posts: () => {
+      return prisma.post.findMany();
+    },
+    post: async ({ id }) => {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: id as string,
+        },
+      });
+      return post;
+    },
+    profiles: () => {
+      return prisma.profile.findMany();
+    },
+    profile: async ({ id }) => {
+      const profile = await prisma.profile.findUnique({
+        where: {
+          id: id as string,
+        },
+      });
+      return profile;
     },
   };
 }
