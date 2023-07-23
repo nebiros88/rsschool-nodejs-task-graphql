@@ -4,6 +4,7 @@ import { graphql } from 'graphql';
 import { resolvers } from './resolvers.js';
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
+  const { prisma } = fastify;
   fastify.route({
     url: '/',
     method: 'POST',
@@ -15,13 +16,13 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req, reply) {
       const { query, variables } = req.body;
-      await graphql({
+      const result = await graphql({
         schema,
         source: query,
+        rootValue: resolvers(prisma),
         variableValues: variables,
-        rootValue: resolvers,
-        contextValue: fastify,
-      }).then((result) => reply.send({ data: result }));
+      });
+      return result;
     },
   });
 };

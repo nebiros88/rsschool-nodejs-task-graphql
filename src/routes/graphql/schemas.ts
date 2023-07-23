@@ -26,11 +26,13 @@ export const schema = buildSchema(`
     name: String!
     balance: Int!
   }
+
   type MemberType {
     id: ID!
     discount: Float!
     postsLimitPerMonth: Int!
   }
+
   type Query {
     users: [User]
     memberTypes: [MemberType]
